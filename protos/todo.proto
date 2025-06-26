@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package todo;
+
+// The service definition for our To-Do list.
+service TodoService {
+  // Creates a new To-Do item.
+  rpc CreateTodo (CreateTodoRequest) returns (TodoItem);
+  
+  // Retrieves the list of all To-Do items.
+  rpc GetTodos (GetTodosRequest) returns (TodosResponse);
+
+  // Updates an existing To-Do item (e.g., marking it as complete).
+  rpc UpdateTodo (UpdateTodoRequest) returns (TodoItem);
+
+  // Deletes a To-Do item.
+  rpc DeleteTodo (DeleteTodoRequest) returns (Empty);
+}
+
+// ------ Messages for Todo CRUD operations ------
+
+// A single To-Do item.
+message TodoItem {
+  int32 id = 1;
+  string title = 2;
+  bool completed = 3;
+}
+
+// Request to create a new To-Do item.
+message CreateTodoRequest {
+  string title = 1;
+}
+
+// Request to get all To-Do items. (Currently empty, but good for future filtering)
+message GetTodosRequest {}
+
+// Response containing a list of To-Do items.
+message TodosResponse {
+  repeated TodoItem todos = 1;
+}
+
+// Request to update a To-Do item.
+message UpdateTodoRequest {
+  int32 id = 1;
+  bool completed = 2;
+}
+
+// Request to delete a To-Do item.
+message DeleteTodoRequest {
+  int32 id = 1;
+}
+
+// An empty message, often used for methods that don't return data.
+message Empty {}
