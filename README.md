@@ -12,11 +12,6 @@ Decoupled Architecture: The frontend and backend are independent services, commu
 🏗️ Architecture
 The application is split into two main components that run as separate processes, communicating over the network via gRPC.
 
-+----------------+      (HTTP Requests)      +--------------------------+      (gRPC Calls)      +-----------------------+      (SQL)      +-----------------+
-|                | ------------------------> |                          | ---------------------> |                       | -------------> |                 |
-|  User Browser  |                           |  Flask Frontend (Gateway)|                        | gRPC Backend Server   |                |  SQLite DB      |
-|                | <------------------------ |                          | <--------------------- |                       | <------------- |  (todo.db)      |
-+----------------+                           +--------------------------+                        +-----------------------+                +-----------------+
 Flask Frontend: A simple web server responsible for rendering the HTML page and translating user actions (button clicks) into gRPC calls to the backend. It does not interact with the database directly.
 gRPC Backend: The "brains" of the operation. It implements the service logic defined in the .proto file and is solely responsible for all database operations using SQLAlchemy and SQLite.
 🔧 Tech Stack
