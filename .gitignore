@@ -4,3 +4,7 @@ venv/
 # Python cache
 __pycache__/
 *.pyc
+
+# Generated gRPC files
+*_pb2.py
+*_pb2_grpc.py
