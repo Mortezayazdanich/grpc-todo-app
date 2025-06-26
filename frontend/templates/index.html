@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>gRPC To-Do List</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .todo-item { display: flex; align-items: center; margin-bottom: 0.5em; }
+        .todo-item.completed { text-decoration: line-through; color: #888; }
+        .todo-item form { margin-left: 1em; }
+        .add-form { margin-top: 2em; }
+    </style>
+</head>
+<body>
+    <h1>My To-Do List</h1>
+
+    <div class="todo-list">
+        {% for todo in todos %}
+            <div class="todo-item {% if todo.completed %}completed{% endif %}">
+                <span>{{ todo.id }}: {{ todo.title }}</span>
+
+                {% if not todo.completed %}
+                <form action="{{ url_for('complete_todo', todo_id=todo.id) }}" method="post" style="display: inline;">
+                    <button type="submit">Mark as Complete</button>
+                </form>
+                {% endif %}
+
+                <form action="{{ url_for('delete_todo', todo_id=todo.id) }}" method="post" style="display: inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="add-form">
+        <h2>Add a New Item</h2>
+        <form action="{{ url_for('add_todo') }}" method="post">
+            <input type="text" name="title" required>
+            <button type="submit">Add To-Do</button>
+        </form>
+    </div>
+</body>
+</html>
